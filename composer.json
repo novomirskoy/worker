@@ -1,0 +1,21 @@
+{
+    "name": "endin/daemon-next",
+    "description": "bla bla bla",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Endin Artyom",
+            "email": "artyom.endin@gmail.com"
+        }
+    ],
+    "require": {
+        "psr/log": "^1.0",
+        "monolog/monolog": "^1.23",
+        "doctrine/orm": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Endin\\Daemon\\": "src/"
+        }
+    }
+}
