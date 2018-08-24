@@ -1,6 +1,6 @@
 <?php
 
-namespace Endin\Daemon\Doctrine;
+namespace Novomirskoy\Worker\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Connection;

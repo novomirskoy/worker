@@ -1,6 +1,6 @@
 <?php
 
-namespace Endin\Daemon;
+namespace Novomirskoy\Worker;
 
 class ChainExtension implements ExtensionInterface
 {

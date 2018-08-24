@@ -1,10 +1,10 @@
 <?php
 
-namespace Endin\Daemon\Extension;
+namespace Novomirskoy\Worker\Extension;
 
-use Endin\Daemon\Context;
-use Endin\Daemon\EmptyExtensionTrait;
-use Endin\Daemon\ExtensionInterface;
+use Novomirskoy\Worker\Context;
+use Novomirskoy\Worker\EmptyExtensionTrait;
+use Novomirskoy\Worker\ExtensionInterface;
 use Psr\Log\LoggerInterface;
 
 class SignalExtension implements ExtensionInterface

@@ -1,11 +1,11 @@
 <?php
 
-namespace Endin\Daemon;
+namespace Novomirskoy\Worker;
 
 use Exception;
 use Psr\Log\LoggerInterface;
 
-class Daemon
+class Worker
 {
     /**
      * @var LoggerInterface
@@ -22,6 +22,12 @@ class Daemon
      */
     private $idleTimeout;
 
+    /**
+     * Worker constructor.
+     * @param LoggerInterface $logger
+     * @param ExtensionInterface $extension
+     * @param int $idleTimeout
+     */
     public function __construct(
         LoggerInterface $logger,
         ExtensionInterface $extension,
@@ -29,9 +35,14 @@ class Daemon
     ) {
         $this->logger = $logger;
         $this->extension = $extension;
-        $this->idleTimeout = $idleTimeout;
+        $this->setIdleTimeout($idleTimeout);
     }
 
+    /**
+     * @return void
+     *
+     * @throws Exception
+     */
     public function run()
     {
         $context = new Context();

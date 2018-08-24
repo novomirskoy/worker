@@ -1,11 +1,11 @@
 <?php
 
-namespace Endin\Daemon\Extension;
+namespace Novomirskoy\Worker\Extension;
 
-use Endin\Daemon\Context;
-use Endin\Daemon\Doctrine\RegistryInterface;
-use Endin\Daemon\EmptyExtensionTrait;
-use Endin\Daemon\ExtensionInterface;
+use Novomirskoy\Worker\Context;
+use Novomirskoy\Worker\Doctrine\RegistryInterface;
+use Novomirskoy\Worker\EmptyExtensionTrait;
+use Novomirskoy\Worker\ExtensionInterface;
 
 class DoctrineClearIdentityMapExtension implements ExtensionInterface
 {

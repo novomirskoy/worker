@@ -1,7 +1,6 @@
 <?php
 
-namespace Endin\Daemon;
-
+namespace Novomirskoy\Worker;
 
 use Psr\Log\LoggerInterface;
 

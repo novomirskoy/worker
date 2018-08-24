@@ -1,6 +1,6 @@
 <?php
 
-namespace Endin\Daemon\Doctrine;
+namespace Novomirskoy\Worker\Doctrine;
 
 class DummyRegistry implements RegistryInterface
 {

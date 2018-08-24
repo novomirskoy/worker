@@ -1,5 +1,5 @@
 {
-    "name": "endin/daemon-next",
+    "name": "novomirskoy/worker",
     "description": "bla bla bla",
     "license": "MIT",
     "authors": [
@@ -9,13 +9,17 @@
         }
     ],
     "require": {
+        "ext-pcntl": "*",
         "psr/log": "^1.0",
         "monolog/monolog": "^1.23",
-        "doctrine/orm": "^2.6"
+        "doctrine/orm": "2.6.*"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Endin\\Daemon\\": "src/"
+            "Novomirskoy\\Worker\\": "src/"
         }
     }
 }
