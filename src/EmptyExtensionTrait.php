@@ -9,7 +9,6 @@ trait EmptyExtensionTrait
      */
     public function onStart(Context $context)
     {
-
     }
 
     /**
@@ -17,7 +16,6 @@ trait EmptyExtensionTrait
      */
     public function onBeforeRunning(Context $context)
     {
-
     }
 
     /**
@@ -25,7 +23,6 @@ trait EmptyExtensionTrait
      */
     public function onRunning(Context $context)
     {
-
     }
 
     /**
@@ -33,7 +30,6 @@ trait EmptyExtensionTrait
      */
     public function onAfterRunning(Context $context)
     {
-
     }
 
     /**
@@ -41,7 +37,6 @@ trait EmptyExtensionTrait
      */
     public function onIdle(Context $context)
     {
-
     }
 
     /**
@@ -49,6 +44,5 @@ trait EmptyExtensionTrait
      */
     public function onInterrupted(Context $context)
     {
-
     }
 }
