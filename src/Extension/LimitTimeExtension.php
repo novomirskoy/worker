@@ -3,10 +3,16 @@
 namespace Novomirskoy\Worker\Extension;
 
 use DateTime;
+use Exception;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
 
+/**
+ * Class LimitTimeExtension
+ *
+ * @package Novomirskoy\Worker\Extension
+ */
 class LimitTimeExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
@@ -53,6 +59,8 @@ class LimitTimeExtension implements ExtensionInterface
      * @param Context $context
      *
      * @return void
+     *
+     * @throws Exception
      */
     private function checkTime(Context $context)
     {

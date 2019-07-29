@@ -5,6 +5,11 @@ namespace Novomirskoy\Worker;
 use Exception;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class Worker
+ *
+ * @package Novomirskoy\Worker
+ */
 class Worker
 {
     /**
@@ -24,6 +29,7 @@ class Worker
 
     /**
      * Worker constructor.
+     *
      * @param LoggerInterface $logger
      * @param ExtensionInterface $extension
      * @param int $idleTimeout

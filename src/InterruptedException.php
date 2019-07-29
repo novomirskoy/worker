@@ -2,7 +2,14 @@
 
 namespace Novomirskoy\Worker;
 
-class InterruptedException extends \Exception
+use Exception;
+
+/**
+ * Class InterruptedException
+ *
+ * @package Novomirskoy\Worker
+ */
+class InterruptedException extends Exception
 {
 
 }

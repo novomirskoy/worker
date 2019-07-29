@@ -2,45 +2,50 @@
 
 namespace Novomirskoy\Worker;
 
+/**
+ * Trait EmptyExtensionTrait
+ *
+ * @package Novomirskoy\Worker
+ */
 trait EmptyExtensionTrait
 {
     /**
-     * @param Context $context
+     * @inheritDoc
      */
     public function onStart(Context $context)
     {
     }
 
     /**
-     * @param Context $context
+     * @inheritDoc
      */
     public function onBeforeRunning(Context $context)
     {
     }
 
     /**
-     * @param Context $context
+     * @inheritDoc
      */
     public function onRunning(Context $context)
     {
     }
 
     /**
-     * @param Context $context
+     * @inheritDoc
      */
     public function onAfterRunning(Context $context)
     {
     }
 
     /**
-     * @param Context $context
+     * @inheritDoc
      */
     public function onIdle(Context $context)
     {
     }
 
     /**
-     * @param Context $context
+     * @inheritDoc
      */
     public function onInterrupted(Context $context)
     {

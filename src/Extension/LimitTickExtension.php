@@ -6,6 +6,11 @@ use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
 
+/**
+ * Class LimitTickExtension
+ *
+ * @package Novomirskoy\Worker\Extension
+ */
 class LimitTickExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;

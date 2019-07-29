@@ -2,6 +2,11 @@
 
 namespace Novomirskoy\Worker;
 
+/**
+ * Class ChainExtension
+ *
+ * @package Novomirskoy\Worker
+ */
 class ChainExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;

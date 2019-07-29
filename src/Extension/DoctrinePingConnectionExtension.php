@@ -7,6 +7,11 @@ use Novomirskoy\Worker\Doctrine\RegistryInterface;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
 
+/**
+ * Class DoctrinePingConnectionExtension
+ *
+ * @package Novomirskoy\Worker\Extension
+ */
 class DoctrinePingConnectionExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;

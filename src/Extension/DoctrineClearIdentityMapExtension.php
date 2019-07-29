@@ -7,6 +7,11 @@ use Novomirskoy\Worker\Doctrine\RegistryInterface;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
 
+/**
+ * Class DoctrineClearIdentityMapExtension
+ *
+ * @package Novomirskoy\Worker\Extension
+ */
 class DoctrineClearIdentityMapExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;

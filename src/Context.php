@@ -4,6 +4,11 @@ namespace Novomirskoy\Worker;
 
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class Context
+ *
+ * @package Novomirskoy\Worker
+ */
 class Context
 {
     /**
