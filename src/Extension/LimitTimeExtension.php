@@ -1,70 +1,47 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker\Extension;
 
-use DateTime;
+use DateTimeImmutable;
 use Exception;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
 
-/**
- * Class LimitTimeExtension
- *
- * @package Novomirskoy\Worker\Extension
- */
-class LimitTimeExtension implements ExtensionInterface
+final class LimitTimeExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
-    /**
-     * @var DateTime
-     */
-    private $timeLimit;
+    private DateTimeImmutable $timeLimit;
 
-    /**
-     * LimitTimeExtension constructor.
-     * @param DateTime $timeLimit
-     */
-    public function __construct(DateTime $timeLimit)
+    public function __construct(DateTimeImmutable $timeLimit)
     {
         $this->timeLimit = $timeLimit;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onBeforeRunning(Context $context)
+    public function onBeforeRunning(Context $context): void
+    {
+        $this->checkTime($context);
+    }
+
+    public function onAfterRunning(Context $context): void
+    {
+        $this->checkTime($context);
+    }
+
+    public function onIdle(Context $context): void
     {
         $this->checkTime($context);
     }
 
     /**
-     * @inheritdoc
-     */
-    public function onAfterRunning(Context $context)
-    {
-        $this->checkTime($context);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function onIdle(Context $context)
-    {
-        $this->checkTime($context);
-    }
-
-    /**
-     * @param Context $context
-     *
-     * @return void
-     *
      * @throws Exception
      */
-    private function checkTime(Context $context)
+    private function checkTime(Context $context): void
     {
-        $now = new DateTime();
+        $now = new DateTimeImmutable();
 
         if ($now >= $this->timeLimit) {
             $context->getLogger()->debug(sprintf(

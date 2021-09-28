@@ -2,28 +2,57 @@
 
 use Novomirskoy\Worker\ChainExtension;
 use Novomirskoy\Worker\Worker;
-use Novomirskoy\Worker\Doctrine\DummyRegistry;
-use Novomirskoy\Worker\Extension\DoctrineClearIdentityMapExtension;
-use Novomirskoy\Worker\Extension\DoctrinePingConnectionExtension;
 use Novomirskoy\Worker\Extension\LimitTickExtension;
 use Novomirskoy\Worker\Extension\LimitTimeExtension;
 use Novomirskoy\Worker\Extension\SignalExtension;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$logger = new Logger('daemon-logger');
-$logger->pushHandler(new StreamHandler(__DIR__ . '/worker.log', Logger::DEBUG));
+$logger = new class implements LoggerInterface {
+    public function emergency(\Stringable|string $message, array $context = [])
+    {
+    }
 
-$doctrineRegistry = new DummyRegistry();
+    public function alert(\Stringable|string $message, array $context = [])
+    {
+    }
+
+    public function critical(\Stringable|string $message, array $context = [])
+    {
+    }
+
+    public function error(\Stringable|string $message, array $context = [])
+    {
+    }
+
+    public function warning(\Stringable|string $message, array $context = [])
+    {
+    }
+
+    public function notice(\Stringable|string $message, array $context = [])
+    {
+    }
+
+    public function info(\Stringable|string $message, array $context = [])
+    {
+    }
+
+    public function debug(\Stringable|string $message, array $context = [])
+    {
+        echo $message, PHP_EOL;
+    }
+
+    public function log($level, \Stringable|string $message, array $context = [])
+    {
+    }
+
+};
 
 $extension = new ChainExtension([
     new SignalExtension(),
-    new LimitTimeExtension(new DateTime('+10 sec')),
+    new LimitTimeExtension(new DateTimeImmutable('+10 sec')),
     new LimitTickExtension(1000),
-    new DoctrineClearIdentityMapExtension($doctrineRegistry),
-    new DoctrinePingConnectionExtension($doctrineRegistry),
 ]);
 
 $worker = new Worker($logger, $extension, 1000);

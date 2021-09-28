@@ -1,6 +1,6 @@
 {
     "name": "novomirskoy/worker",
-    "description": "bla bla bla",
+    "description": "Расширяемая абстракция для долгоживущих процессов",
     "license": "MIT",
     "authors": [
         {
@@ -9,16 +9,12 @@
         }
     ],
     "require": {
-        "php":  ">=5.4",
-
+        "php": "7.4.* || 8.*",
         "ext-pcntl": "*",
-
-        "psr/log": "^1.0",
-        "monolog/monolog": "^1.23",
-        "doctrine/common": "2.5.*"
+        "psr/log": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {

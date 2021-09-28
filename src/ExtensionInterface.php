@@ -1,50 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker;
 
 interface ExtensionInterface
 {
-    /**
-     * @param Context $context
-     *
-     * @return void
-     */
-    public function onStart(Context $context);
+    public function onStart(Context $context): void;
 
-    /**
-     * @param Context $context
-     *
-     * @return void
-     */
-    public function onBeforeRunning(Context $context);
+    public function onBeforeRunning(Context $context): void;
 
-    /**
-     * @param Context $context
-     *
-     * @return void
-     */
-    public function onRunning(Context $context);
+    public function onRunning(Context $context): void;
 
-    /**
-     * @param Context $context
-     *
-     * @return void
-     */
-    public function onAfterRunning(Context $context);
+    public function onAfterRunning(Context $context): void;
 
     /**
      * Called each time at the end of the cycle if nothing was done.
-     *
-     * @param Context $context
-     *
-     * @return void
      */
-    public function onIdle(Context $context);
+    public function onIdle(Context $context): void;
 
-    /**
-     * @param Context $context
-     *
-     * @return void
-     */
-    public function onInterrupted(Context $context);
+    public function onInterrupted(Context $context): void;
 }

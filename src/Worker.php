@@ -1,43 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker;
 
 use Exception;
 use Psr\Log\LoggerInterface;
 
-/**
- * Class Worker
- *
- * @package Novomirskoy\Worker
- */
-class Worker
+final class Worker
 {
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    private LoggerInterface $logger;
 
     /**
      * @var ExtensionInterface
      */
-    private $extension;
+    private ExtensionInterface $extension;
 
     /**
      * @var int in milliseconds
      */
-    private $idleTimeout;
+    private int $idleTimeout;
 
-    /**
-     * Worker constructor.
-     *
-     * @param LoggerInterface $logger
-     * @param ExtensionInterface $extension
-     * @param int $idleTimeout
-     */
     public function __construct(
         LoggerInterface $logger,
         ExtensionInterface $extension,
-        $idleTimeout = 0
+        int $idleTimeout = 0
     ) {
         $this->logger = $logger;
         $this->extension = $extension;
@@ -45,11 +35,9 @@ class Worker
     }
 
     /**
-     * @return void
-     *
      * @throws Exception
      */
-    public function run()
+    public function run(): void
     {
         $context = new Context();
         $context->setLogger($this->logger);
@@ -85,19 +73,13 @@ class Worker
         }
     }
 
-    /**
-     * @return int
-     */
-    public function getIdleTimeout()
+    public function getIdleTimeout(): int
     {
         return $this->idleTimeout;
     }
 
-    /**
-     * @param int $idleTimeout
-     */
-    public function setIdleTimeout($idleTimeout)
+    public function setIdleTimeout(int $idleTimeout): void
     {
-        $this->idleTimeout = (int)$idleTimeout;
+        $this->idleTimeout = $idleTimeout;
     }
 }

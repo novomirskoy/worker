@@ -1,66 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker;
 
 use Psr\Log\LoggerInterface;
+use RuntimeException;
 
-/**
- * Class Context
- *
- * @package Novomirskoy\Worker
- */
-class Context
+final class Context
 {
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /**
-     * @var bool
-     */
-    private $executionInterrupted;
+    private bool $executionInterrupted;
 
-    /**
-     * Context constructor.
-     */
     public function __construct()
     {
         $this->executionInterrupted = false;
     }
 
-    /**
-     * @return bool
-     */
-    public function isExecutionInterrupted()
+    public function isExecutionInterrupted(): bool
     {
         return $this->executionInterrupted;
     }
 
-    /**
-     * @param bool $executionInterrupted
-     */
-    public function setExecutionInterrupted($executionInterrupted)
+    public function setExecutionInterrupted(bool $executionInterrupted): void
     {
         if (false === $executionInterrupted && $this->executionInterrupted) {
-            throw new \RuntimeException('The execution once interrupted could no be roll backed');
+            throw new RuntimeException('The execution once interrupted could no be roll backed');
         }
 
         $this->executionInterrupted = $executionInterrupted;
     }
 
-    /**
-     * @return LoggerInterface
-     */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
 
-    /**
-     * @param LoggerInterface $logger
-     */
-    public function setLogger($logger)
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }

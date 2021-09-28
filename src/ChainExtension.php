@@ -1,84 +1,59 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker;
 
-/**
- * Class ChainExtension
- *
- * @package Novomirskoy\Worker
- */
-class ChainExtension implements ExtensionInterface
+final class ChainExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
     /**
      * @var ExtensionInterface[]
      */
-    private $extensions;
+    private array $extensions;
 
-    /**
-     * ChainExtension constructor.
-     * @param array $extensions
-     */
     public function __construct(array $extensions = [])
     {
         $this->extensions = $extensions;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onStart(Context $context)
+    public function onStart(Context $context): void
     {
         foreach ($this->extensions as $extension) {
             $extension->onStart($context);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onBeforeRunning(Context $context)
+    public function onBeforeRunning(Context $context): void
     {
         foreach ($this->extensions as $extension) {
             $extension->onBeforeRunning($context);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onRunning(Context $context)
+    public function onRunning(Context $context): void
     {
         foreach ($this->extensions as $extension) {
             $extension->onRunning($context);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onAfterRunning(Context $context)
+    public function onAfterRunning(Context $context): void
     {
         foreach ($this->extensions as $extension) {
             $extension->onAfterRunning($context);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onIdle(Context $context)
+    public function onIdle(Context $context): void
     {
         foreach ($this->extensions as $extension) {
             $extension->onIdle($context);
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onInterrupted(Context $context)
+    public function onInterrupted(Context $context): void
     {
         foreach ($this->extensions as $extension) {
             $extension->onInterrupted($context);

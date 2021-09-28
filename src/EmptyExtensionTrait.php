@@ -1,53 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker;
 
-/**
- * Trait EmptyExtensionTrait
- *
- * @package Novomirskoy\Worker
- */
 trait EmptyExtensionTrait
 {
-    /**
-     * @inheritDoc
-     */
-    public function onStart(Context $context)
+    public function onStart(Context $context): void
     {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function onBeforeRunning(Context $context)
+    public function onBeforeRunning(Context $context): void
     {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function onRunning(Context $context)
+    public function onRunning(Context $context): void
     {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function onAfterRunning(Context $context)
+    public function onAfterRunning(Context $context): void
     {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function onIdle(Context $context)
+    public function onIdle(Context $context): void
     {
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function onInterrupted(Context $context)
+    public function onInterrupted(Context $context): void
     {
     }
 }

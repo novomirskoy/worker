@@ -1,38 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker\Extension;
 
+use LogicException;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
 use Psr\Log\LoggerInterface;
 
-/**
- * Class SignalExtension
- *
- * @package Novomirskoy\Worker\Extension
- */
-class SignalExtension implements ExtensionInterface
+final class SignalExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
-    /**
-     * @var bool
-     */
-    private $interrupt = false;
+    private bool $interrupt = false;
 
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /**
-     * @inheritdoc
-     */
-    public function onStart(Context $context)
+    public function onStart(Context $context): void
     {
         if (false === extension_loaded('pcntl')) {
-            throw new \LogicException('The pcntl extension is required in order to catch signals');
+            throw new LogicException('The pcntl extension is required in order to catch signals');
         }
 
         if (function_exists('pcntl_async_signals')) {
@@ -48,42 +37,28 @@ class SignalExtension implements ExtensionInterface
         $this->logger = $context->getLogger();
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onBeforeRunning(Context $context)
+    public function onBeforeRunning(Context $context): void
     {
         $this->dispatchSignal();
 
         $this->interruptExecutionIfNeeded($context);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onAfterRunning(Context $context)
+    public function onAfterRunning(Context $context): void
     {
         $this->dispatchSignal();
 
         $this->interruptExecutionIfNeeded($context);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function onIdle(Context $context)
+    public function onIdle(Context $context): void
     {
         $this->dispatchSignal();
 
         $this->interruptExecutionIfNeeded($context);
     }
 
-    /**
-     * @param Context $context
-     *
-     * @return void
-     */
-    public function interruptExecutionIfNeeded(Context $context)
+    public function interruptExecutionIfNeeded(Context $context): void
     {
         if (false === $context->isExecutionInterrupted() && $this->interrupt) {
             $this->logger->debug('[SignalExtension] Interrupt');
@@ -93,12 +68,7 @@ class SignalExtension implements ExtensionInterface
         }
     }
 
-    /**
-     * @param int $signal
-     *
-     * @return void
-     */
-    public function handleSignal($signal)
+    public function handleSignal(int $signal): void
     {
         $this->logger->debug(sprintf('[SignalExtension] Caught signal: %s', $signal));
 
@@ -119,7 +89,7 @@ class SignalExtension implements ExtensionInterface
     /**
      * @return void
      */
-    private function dispatchSignal()
+    private function dispatchSignal(): void
     {
         if (false === function_exists('pcntl_async_signals')) {
             pcntl_signal_dispatch();

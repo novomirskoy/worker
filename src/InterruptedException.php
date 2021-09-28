@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Novomirskoy\Worker;
 
 use Exception;
@@ -9,7 +11,7 @@ use Exception;
  *
  * @package Novomirskoy\Worker
  */
-class InterruptedException extends Exception
+final class InterruptedException extends Exception
 {
 
 }
