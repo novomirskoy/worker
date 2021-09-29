@@ -38,7 +38,7 @@ final class LimitTickExtension implements ExtensionInterface
                 $this->tickLimit
             ));
 
-            $context->setExecutionInterrupted(true);
+            $context->interruptExecution();
         }
     }
 }

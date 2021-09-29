@@ -24,9 +24,7 @@ final class SignalExtension implements ExtensionInterface
             throw new LogicException('The pcntl extension is required in order to catch signals');
         }
 
-        if (function_exists('pcntl_async_signals')) {
-            pcntl_async_signals(true);
-        }
+        pcntl_async_signals(true);
 
         pcntl_signal(SIGTERM, [$this, 'handleSignal']);
         pcntl_signal(SIGQUIT, [$this, 'handleSignal']);
@@ -39,22 +37,16 @@ final class SignalExtension implements ExtensionInterface
 
     public function onBeforeRunning(Context $context): void
     {
-        $this->dispatchSignal();
-
         $this->interruptExecutionIfNeeded($context);
     }
 
     public function onAfterRunning(Context $context): void
     {
-        $this->dispatchSignal();
-
         $this->interruptExecutionIfNeeded($context);
     }
 
     public function onIdle(Context $context): void
     {
-        $this->dispatchSignal();
-
         $this->interruptExecutionIfNeeded($context);
     }
 
@@ -63,7 +55,7 @@ final class SignalExtension implements ExtensionInterface
         if (false === $context->isExecutionInterrupted() && $this->interrupt) {
             $this->logger->debug('[SignalExtension] Interrupt');
 
-            $context->setExecutionInterrupted($this->interrupt);
+            $context->interruptExecution();
             $this->interrupt = false;
         }
     }
@@ -83,16 +75,6 @@ final class SignalExtension implements ExtensionInterface
                 break;
             default:
                 break;
-        }
-    }
-
-    /**
-     * @return void
-     */
-    private function dispatchSignal(): void
-    {
-        if (false === function_exists('pcntl_async_signals')) {
-            pcntl_signal_dispatch();
         }
     }
 }

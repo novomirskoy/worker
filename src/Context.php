@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Novomirskoy\Worker;
 
 use Psr\Log\LoggerInterface;
-use RuntimeException;
 
 final class Context
 {
-    private LoggerInterface $logger;
-
-    private bool $executionInterrupted;
-
-    public function __construct()
-    {
-        $this->executionInterrupted = false;
+    public function __construct(
+        private LoggerInterface $logger,
+        private bool $executionInterrupted = false
+    ) {
     }
 
     public function isExecutionInterrupted(): bool
@@ -23,22 +19,21 @@ final class Context
         return $this->executionInterrupted;
     }
 
-    public function setExecutionInterrupted(bool $executionInterrupted): void
+    public function interruptExecution(): void
     {
-        if (false === $executionInterrupted && $this->executionInterrupted) {
-            throw new RuntimeException('The execution once interrupted could no be roll backed');
-        }
-
-        $this->executionInterrupted = $executionInterrupted;
+        $this->executionInterrupted = true;
     }
 
-    public function getLogger(): LoggerInterface
+    public function logger(): LoggerInterface
     {
         return $this->logger;
     }
 
-    public function setLogger(LoggerInterface $logger): void
+    /**
+     * @deprecated
+     */
+    public function getLogger(): LoggerInterface
     {
-        $this->logger = $logger;
+        return $this->logger;
     }
 }

@@ -51,7 +51,7 @@ final class LimitTimeExtension implements ExtensionInterface
                 $this->timeLimit->format(DATE_ATOM)
             ));
 
-            $context->setExecutionInterrupted(true);
+            $context->interruptExecution();
         }
     }
 }
