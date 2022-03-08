@@ -14,11 +14,25 @@
         "psr/log": "^1.0 || ^2.0"
     },
     "require-dev": {
+        "ext-mbstring": "*",
+        "phpunit/phpunit": "^9",
         "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {
             "Novomirskoy\\Worker\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Novomirskoy\\Worker\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit --colors=always",
+        "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html .phpunit.cache/coverage"
     }
 }

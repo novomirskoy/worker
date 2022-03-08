@@ -33,7 +33,7 @@ final class LimitTickExtension implements ExtensionInterface
     private function checkLimit(Context $context): void
     {
         if ($this->tickCount >= $this->tickLimit) {
-            $context->getLogger()->debug(sprintf(
+            $context->logger()->debug(sprintf(
                 '[LimitTickExtension] Превышен лимит допустимых операций. Ограничение: "%s"',
                 $this->tickLimit
             ));

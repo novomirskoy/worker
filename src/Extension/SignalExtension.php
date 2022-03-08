@@ -21,7 +21,7 @@ final class SignalExtension implements ExtensionInterface
     public function onStart(Context $context): void
     {
         if (false === extension_loaded('pcntl')) {
-            throw new LogicException('The pcntl extension is required in order to catch signals');
+            throw new LogicException('The pcntl extension is required in order to catch signals'); // @codeCoverageIgnore
         }
 
         pcntl_async_signals(true);
@@ -32,7 +32,7 @@ final class SignalExtension implements ExtensionInterface
 
         $this->interrupt = false;
 
-        $this->logger = $context->getLogger();
+        $this->logger = $context->logger();
     }
 
     public function onBeforeRunning(Context $context): void
@@ -50,7 +50,7 @@ final class SignalExtension implements ExtensionInterface
         $this->interruptExecutionIfNeeded($context);
     }
 
-    public function interruptExecutionIfNeeded(Context $context): void
+    private function interruptExecutionIfNeeded(Context $context): void
     {
         if (false === $context->isExecutionInterrupted() && $this->interrupt) {
             $this->logger->debug('[SignalExtension] Interrupt');

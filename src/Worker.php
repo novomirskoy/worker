@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Novomirskoy\Worker;
 
+use Novomirskoy\Worker\Exception\InterruptedException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -17,6 +18,7 @@ final class Worker
     }
 
     /**
+     * @throws InterruptedException
      * @throws Throwable
      */
     public function run(): void
@@ -37,10 +39,6 @@ final class Worker
 
                 usleep($this->idleTimeout * 1000);
                 $this->extension->onIdle($context);
-
-                if ($context->isExecutionInterrupted()) {
-                    throw new InterruptedException();
-                }
             } catch (InterruptedException) {
                 $context->interruptExecution();
                 $this->extension->onInterrupted($context);
