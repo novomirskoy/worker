@@ -15,6 +15,8 @@
     },
     "require-dev": {
         "ext-mbstring": "*",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "overtrue/phplint": "^4.1",
         "phpunit/phpunit": "^9",
         "roave/security-advisories": "dev-latest"
     },
@@ -33,6 +35,8 @@
     },
     "scripts": {
         "test": "phpunit --colors=always",
-        "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html .phpunit.cache/coverage"
+        "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/cache/phpunit/coverage-report",
+        "lint": "phplint",
+        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes"
     }
 }

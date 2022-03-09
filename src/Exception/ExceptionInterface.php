@@ -6,5 +6,4 @@ namespace Novomirskoy\Worker\Exception;
 
 interface ExceptionInterface
 {
-
 }

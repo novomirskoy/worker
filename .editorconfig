@@ -1,0 +1,32 @@
+; This file is for unifying the coding style for different editors and IDEs.
+; More information at http://editorconfig.org
+
+root = true
+
+; Unix-style newlines
+[*]
+end_of_line = LF
+insert_final_newline = true
+
+[*.php]
+charset = utf-8
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+
+[*.md]
+charset = utf-8
+trim_trailing_whitespace = false
+
+[*.{yml, yaml}]
+charset = utf-8
+indent_size = 4
+indent_style = space
+
+[*.json]
+charset = utf-8
+indent_size = 4
+indent_style = space
+
+[Makefile]
+indent_style = tab

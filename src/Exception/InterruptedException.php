@@ -13,5 +13,4 @@ use RuntimeException;
  */
 final class InterruptedException extends RuntimeException implements ExceptionInterface
 {
-
 }
