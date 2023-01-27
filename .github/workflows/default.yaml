@@ -21,7 +21,7 @@ jobs:
       - name: Run lint
         run: composer run lint
       - name: Run Php CS Fixer
-        run: composer run php-cs-fixer
+        run: composer run php-cs-fixer-ci
       - name: Run tests
         run: vendor/bin/phpunit
       - name: Check example
