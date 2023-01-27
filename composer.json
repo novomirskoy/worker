@@ -9,15 +9,15 @@
         }
     ],
     "require": {
-        "php": "8.*",
+        "php": "^7.2 || ^8.0",
         "ext-pcntl": "*",
         "psr/log": "^1.0 || ^2.0"
     },
     "require-dev": {
         "ext-mbstring": "*",
         "friendsofphp/php-cs-fixer": "^3.0",
-        "overtrue/phplint": "^4.1",
-        "phpunit/phpunit": "^9",
+        "overtrue/phplint": "^3.2 || ^4.5",
+        "phpunit/phpunit": "^8.0",
         "roave/security-advisories": "dev-latest"
     },
     "autoload": {
@@ -37,6 +37,6 @@
         "test": "phpunit --colors=always",
         "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/cache/phpunit/coverage-report",
         "lint": "phplint",
-        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes"
+        "php-cs-fixer": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes"
     }
 }
