@@ -18,9 +18,9 @@ $logger = new class () extends NullLogger {
 
 $extension = new ChainExtension([
     new SignalExtension(),
-    new LimitTimeExtension(new DateTimeImmutable('+10 sec')),
-    new LimitTickExtension(1000),
+    new LimitTimeExtension(new DateTimeImmutable('+3 sec')),
+    new LimitTickExtension(300),
 ]);
 
-$worker = new Worker($logger, $extension, 1000);
+$worker = new Worker($logger, $extension, 300);
 $worker->run();
