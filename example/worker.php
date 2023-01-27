@@ -10,7 +10,7 @@ use Psr\Log\NullLogger;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $logger = new class () extends NullLogger {
-    public function log($level, Stringable|string $message, array $context = []): void
+    public function log($level, $message, array $context = []): void
     {
         echo $message, PHP_EOL;
     }
@@ -18,9 +18,9 @@ $logger = new class () extends NullLogger {
 
 $extension = new ChainExtension([
     new SignalExtension(),
-    new LimitTimeExtension(new DateTimeImmutable('+10 sec')),
-    new LimitTickExtension(1000),
+    new LimitTimeExtension(new DateTimeImmutable('+3 sec')),
+    new LimitTickExtension(300),
 ]);
 
-$worker = new Worker($logger, $extension, 1000);
+$worker = new Worker($logger, $extension, 300);
 $worker->run();

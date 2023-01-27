@@ -1,0 +1,33 @@
+name: Test worker
+on: [push]
+
+jobs:
+  run:
+    runs-on: 'ubuntu-latest'
+    timeout-minutes: 1000
+    strategy:
+      matrix:
+        php-versions: ['7.2', '7.4', '8.0', '8.1']
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: pcntl
+          tools: composer:v2
+      - name: Install composer dependencies
+        run: composer install
+      - name: Run lint
+        run: composer run lint
+      - name: Run Php CS Fixer
+        run: composer run php-cs-fixer-ci
+      - name: Run coverage
+        run: composer run coverage
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+            report_paths: 'var/junit.xml'
+      - name: Check example
+        run: php example/worker.php

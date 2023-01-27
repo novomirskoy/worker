@@ -11,7 +11,7 @@ final class ChainExtension implements ExtensionInterface
     /**
      * @var ExtensionInterface[]
      */
-    private array $extensions;
+    private $extensions;
 
     public function __construct(array $extensions = [])
     {
