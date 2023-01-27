@@ -22,7 +22,12 @@ jobs:
         run: composer run lint
       - name: Run Php CS Fixer
         run: composer run php-cs-fixer-ci
-      - name: Run tests
-        run: vendor/bin/phpunit
+      - name: Run coverage
+        run: composer run coverage
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+            report_paths: 'var/junit.xml'
       - name: Check example
         run: php example/worker.php

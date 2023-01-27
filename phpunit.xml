@@ -16,10 +16,17 @@
         </testsuite>
     </testsuites>
 
-    <coverage cacheDirectory="var/cache/phpunit/code-coverage"
-              processUncoveredFiles="true">
-        <include>
+    <logging>
+        <log type="coverage-clover" target="var/coverage.xml"/>
+        <log type="coverage-text" target="php://stdout"/>
+        <log type="testdox-text" target="php://stdout"/>
+        <log type="junit" target="var/junit.xml"/>
+    </logging>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
-        </include>
-    </coverage>
+        </whitelist>
+    </filter>
+
 </phpunit>
