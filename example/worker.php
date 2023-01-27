@@ -10,7 +10,7 @@ use Psr\Log\NullLogger;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $logger = new class () extends NullLogger {
-    public function log($level, Stringable|string $message, array $context = []): void
+    public function log($level, $message, array $context = []): void
     {
         echo $message, PHP_EOL;
     }

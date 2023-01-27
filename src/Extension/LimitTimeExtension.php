@@ -13,9 +13,15 @@ final class LimitTimeExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
+    /**
+     * @var DateTimeImmutable
+     */
+    private $timeLimit;
+
     public function __construct(
-        private DateTimeImmutable $timeLimit,
+        DateTimeImmutable $timeLimit
     ) {
+        $this->timeLimit = $timeLimit;
     }
 
     public function onBeforeRunning(Context $context): void

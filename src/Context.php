@@ -8,10 +8,22 @@ use Psr\Log\LoggerInterface;
 
 final class Context
 {
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var bool
+     */
+    private $executionInterrupted = false;
+
     public function __construct(
-        private LoggerInterface $logger,
-        private bool $executionInterrupted = false
+        LoggerInterface $logger,
+        bool $executionInterrupted = false
     ) {
+        $this->executionInterrupted = $executionInterrupted;
+        $this->logger = $logger;
     }
 
     public function isExecutionInterrupted(): bool

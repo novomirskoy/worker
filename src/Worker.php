@@ -10,11 +10,29 @@ use Throwable;
 
 final class Worker
 {
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var ExtensionInterface
+     */
+    private $extension;
+
+    /**
+     * @var int
+     */
+    private $idleTimeout;
+
     public function __construct(
-        private LoggerInterface $logger,
-        private ExtensionInterface $extension,
-        private int $idleTimeout = 0
+        LoggerInterface $logger,
+        ExtensionInterface $extension,
+        int $idleTimeout = 0
     ) {
+        $this->idleTimeout = $idleTimeout;
+        $this->extension = $extension;
+        $this->logger = $logger;
     }
 
     /**
@@ -39,7 +57,7 @@ final class Worker
 
                 usleep($this->idleTimeout * 1000);
                 $this->extension->onIdle($context);
-            } catch (InterruptedException) {
+            } catch (InterruptedException $e) {
                 $context->interruptExecution();
                 $this->extension->onInterrupted($context);
 
