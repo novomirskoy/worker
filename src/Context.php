@@ -9,9 +9,15 @@ use RuntimeException;
 
 final class Context
 {
-    private LoggerInterface $logger;
+    /**
+     * @var
+     */
+    private $logger;
 
-    private bool $executionInterrupted;
+    /**
+     * @var false
+     */
+    private $executionInterrupted;
 
     public function __construct()
     {

@@ -12,17 +12,17 @@ final class Worker
     /**
      * @var LoggerInterface
      */
-    private LoggerInterface $logger;
+    private $logger;
 
     /**
      * @var ExtensionInterface
      */
-    private ExtensionInterface $extension;
+    private $extension;
 
     /**
      * @var int in milliseconds
      */
-    private int $idleTimeout;
+    private $idleTimeout;
 
     public function __construct(
         LoggerInterface $logger,

@@ -14,9 +14,15 @@ final class SignalExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
-    private bool $interrupt = false;
+    /**
+     * @var bool
+     */
+    private $interrupt = false;
 
-    private LoggerInterface $logger;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     public function onStart(Context $context): void
     {

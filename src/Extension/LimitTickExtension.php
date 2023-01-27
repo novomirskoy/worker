@@ -12,10 +12,15 @@ final class LimitTickExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
+    private $tickLimit;
+    private $tickCount = 0;
+
     public function __construct(
-        private int $tickLimit,
-        private int $tickCount = 0
+        int $tickLimit,
+        int $tickCount = 0
     ) {
+        $this->tickCount = $tickCount;
+        $this->tickLimit = $tickLimit;
     }
 
     public function onBeforeRunning(Context $context): void

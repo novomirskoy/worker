@@ -14,7 +14,10 @@ final class LimitTimeExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
-    private DateTimeImmutable $timeLimit;
+    /**
+     * @var DateTimeImmutable
+     */
+    private $timeLimit;
 
     public function __construct(DateTimeImmutable $timeLimit)
     {
