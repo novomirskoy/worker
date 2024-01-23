@@ -2,6 +2,8 @@
 
 namespace Novomirskoy\Worker;
 
+use Exception;
+
 /**
  * Class ChainExtension
  *
@@ -82,6 +84,16 @@ class ChainExtension implements ExtensionInterface
     {
         foreach ($this->extensions as $extension) {
             $extension->onInterrupted($context);
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function onError(Context $context, Exception $exception = null)
+    {
+        foreach ($this->extensions as $extension) {
+            $extension->onError($context, $exception);
         }
     }
 }

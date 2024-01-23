@@ -2,6 +2,8 @@
 
 namespace Novomirskoy\Worker;
 
+use Exception;
+
 /**
  * Trait EmptyExtensionTrait
  *
@@ -49,5 +51,13 @@ trait EmptyExtensionTrait
      */
     public function onInterrupted(Context $context)
     {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function onError(Context $context, Exception $exception = null)
+    {
+
     }
 }

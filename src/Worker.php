@@ -79,6 +79,7 @@ class Worker
                 return;
             } catch (Exception $e) {
                 $context->setExecutionInterrupted(true);
+                $this->extension->onError($context, $e);
 
                 throw $e;
             }

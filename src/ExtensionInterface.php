@@ -2,6 +2,8 @@
 
 namespace Novomirskoy\Worker;
 
+use Exception;
+
 interface ExtensionInterface
 {
     /**
@@ -47,4 +49,12 @@ interface ExtensionInterface
      * @return void
      */
     public function onInterrupted(Context $context);
+
+    /**
+     * @param Context $context
+     * @param Exception|null $exception
+     *
+     * @return void
+     */
+    public function onError(Context $context, Exception $exception = null);
 }
