@@ -6,11 +6,4 @@ namespace Novomirskoy\Worker\Exception;
 
 use RuntimeException;
 
-/**
- * Class InterruptedException
- *
- * @package Novomirskoy\Worker
- */
-final class InterruptedException extends RuntimeException implements ExceptionInterface
-{
-}
+final class InterruptedException extends RuntimeException implements ExceptionInterface {}

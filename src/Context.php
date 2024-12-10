@@ -9,10 +9,9 @@ use Psr\Log\LoggerInterface;
 final class Context
 {
     public function __construct(
-        private LoggerInterface $logger,
-        private bool $executionInterrupted = false
-    ) {
-    }
+        public readonly LoggerInterface $logger,
+        private bool $executionInterrupted = false,
+    ) {}
 
     public function isExecutionInterrupted(): bool
     {
@@ -22,18 +21,5 @@ final class Context
     public function interruptExecution(): void
     {
         $this->executionInterrupted = true;
-    }
-
-    public function logger(): LoggerInterface
-    {
-        return $this->logger;
-    }
-
-    /**
-     * @deprecated
-     */
-    public function getLogger(): LoggerInterface
-    {
-        return $this->logger;
     }
 }

@@ -8,26 +8,29 @@ use DateTimeImmutable;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
+use Override;
 
-final class LimitTimeExtension implements ExtensionInterface
+final readonly class LimitTimeExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
     public function __construct(
         private DateTimeImmutable $timeLimit,
-    ) {
-    }
+    ) {}
 
+    #[Override]
     public function onBeforeRunning(Context $context): void
     {
         $this->checkTime($context);
     }
 
+    #[Override]
     public function onAfterRunning(Context $context): void
     {
         $this->checkTime($context);
     }
 
+    #[Override]
     public function onIdle(Context $context): void
     {
         $this->checkTime($context);
@@ -38,11 +41,11 @@ final class LimitTimeExtension implements ExtensionInterface
         $now = new DateTimeImmutable();
 
         if ($now >= $this->timeLimit) {
-            $context->logger()->debug(sprintf(
+            $context->logger->debug(sprintf(
                 '[LimitTimeExtension] Execution interrupted as limit time has passed.' .
                 ' now: "%s", time-limit: "%s"',
                 $now->format(DATE_ATOM),
-                $this->timeLimit->format(DATE_ATOM)
+                $this->timeLimit->format(DATE_ATOM),
             ));
 
             $context->interruptExecution();

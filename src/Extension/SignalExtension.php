@@ -8,6 +8,7 @@ use LogicException;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
 use Novomirskoy\Worker\ExtensionInterface;
+use Override;
 use Psr\Log\LoggerInterface;
 
 final class SignalExtension implements ExtensionInterface
@@ -18,6 +19,7 @@ final class SignalExtension implements ExtensionInterface
 
     private LoggerInterface $logger;
 
+    #[Override]
     public function onStart(Context $context): void
     {
         if (false === extension_loaded('pcntl')) {
@@ -26,25 +28,28 @@ final class SignalExtension implements ExtensionInterface
 
         pcntl_async_signals(true);
 
-        pcntl_signal(SIGTERM, [$this, 'handleSignal']);
-        pcntl_signal(SIGQUIT, [$this, 'handleSignal']);
-        pcntl_signal(SIGINT, [$this, 'handleSignal']);
+        pcntl_signal(SIGTERM, $this->handleSignal(...));
+        pcntl_signal(SIGQUIT, $this->handleSignal(...));
+        pcntl_signal(SIGINT, $this->handleSignal(...));
 
         $this->interrupt = false;
 
-        $this->logger = $context->logger();
+        $this->logger = $context->logger;
     }
 
+    #[Override]
     public function onBeforeRunning(Context $context): void
     {
         $this->interruptExecutionIfNeeded($context);
     }
 
+    #[Override]
     public function onAfterRunning(Context $context): void
     {
         $this->interruptExecutionIfNeeded($context);
     }
 
+    #[Override]
     public function onIdle(Context $context): void
     {
         $this->interruptExecutionIfNeeded($context);

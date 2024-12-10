@@ -6,14 +6,13 @@ namespace Tests\Novomirskoy\Worker\Extension;
 
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\Extension\SignalExtension;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
 class SignalExtensionTest extends TestCase
 {
-    /**
-     * @dataProvider signalsProvider
-     */
+    #[DataProvider(methodName: 'signalsProvider')]
     public function testHandleSignal(int $signal, bool $result): void
     {
         $context = new Context(new NullLogger());
@@ -33,15 +32,13 @@ class SignalExtensionTest extends TestCase
         static::assertEquals($context->isExecutionInterrupted(), $result);
     }
 
-    public function signalsProvider(): array
+    public static function signalsProvider(): iterable
     {
-        return [
-            [SIGTERM, true],
-            [SIGQUIT, true],
-            [SIGINT, true],
-            [SIGILL, false],
-            [SIGPIPE, false],
-            [SIGCLD, false],
-        ];
+        yield [SIGTERM, true];
+        yield [SIGQUIT, true];
+        yield [SIGINT, true];
+        yield [SIGILL, false];
+        yield [SIGPIPE, false];
+        yield [SIGCLD, false];
     }
 }

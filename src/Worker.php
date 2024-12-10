@@ -8,14 +8,13 @@ use Novomirskoy\Worker\Exception\InterruptedException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-final class Worker
+final readonly class Worker
 {
     public function __construct(
         private LoggerInterface $logger,
         private ExtensionInterface $extension,
-        private int $idleTimeout = 0
-    ) {
-    }
+        private int $idleTimeout = 0,
+    ) {}
 
     /**
      * @throws InterruptedException
