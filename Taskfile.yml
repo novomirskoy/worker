@@ -1,0 +1,40 @@
+version: '3'
+
+output: interleaved
+silent: false
+
+dotenv:
+  - .env
+
+vars:
+  PHP_IMAGE: "novomirskoy/worker-{{.ARCH}}"
+
+tasks:
+  docker:build:
+    cmds:
+      - "docker build --pull -t {{.PHP_IMAGE}} ./docker/php-cli"
+
+  bash:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} bash"
+
+  composer:install:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer install"
+
+  test:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer test"
+
+  coverage:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer coverage"
+
+  lint:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer lint"
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer php-cs-fixer fix -- --dry-run --diff"
+
+  cs-fix:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer php-cs-fixer fix"

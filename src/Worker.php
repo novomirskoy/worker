@@ -4,43 +4,25 @@ declare(strict_types=1);
 
 namespace Novomirskoy\Worker;
 
-use Exception;
+use Novomirskoy\Worker\Exception\InterruptedException;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
-final class Worker
+final readonly class Worker
 {
-    /**
-     * @var LoggerInterface
-     */
-    private LoggerInterface $logger;
-
-    /**
-     * @var ExtensionInterface
-     */
-    private ExtensionInterface $extension;
-
-    /**
-     * @var int in milliseconds
-     */
-    private int $idleTimeout;
-
     public function __construct(
-        LoggerInterface $logger,
-        ExtensionInterface $extension,
-        int $idleTimeout = 0
-    ) {
-        $this->logger = $logger;
-        $this->extension = $extension;
-        $this->setIdleTimeout($idleTimeout);
-    }
+        private LoggerInterface $logger,
+        private ExtensionInterface $extension,
+        private int $idleTimeout = 0,
+    ) {}
 
     /**
-     * @throws Exception
+     * @throws InterruptedException
+     * @throws Throwable
      */
     public function run(): void
     {
-        $context = new Context();
-        $context->setLogger($this->logger);
+        $context = new Context($this->logger);
 
         $this->extension->onStart($context);
 
@@ -56,30 +38,16 @@ final class Worker
 
                 usleep($this->idleTimeout * 1000);
                 $this->extension->onIdle($context);
-
-                if ($context->isExecutionInterrupted()) {
-                    throw new InterruptedException();
-                }
-            } catch (InterruptedException $e) {
-                $context->setExecutionInterrupted(true);
+            } catch (InterruptedException) {
+                $context->interruptExecution();
                 $this->extension->onInterrupted($context);
 
                 return;
-            } catch (Exception $e) {
-                $context->setExecutionInterrupted(true);
+            } catch (Throwable $e) {
+                $context->interruptExecution();
 
                 throw $e;
             }
         }
-    }
-
-    public function getIdleTimeout(): int
-    {
-        return $this->idleTimeout;
-    }
-
-    public function setIdleTimeout(int $idleTimeout): void
-    {
-        $this->idleTimeout = $idleTimeout;
     }
 }
