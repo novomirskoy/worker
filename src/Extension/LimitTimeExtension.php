@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Novomirskoy\Worker\Extension;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\EmptyExtensionTrait;
@@ -14,9 +15,19 @@ final readonly class LimitTimeExtension implements ExtensionInterface
 {
     use EmptyExtensionTrait;
 
+    private DateTimeImmutable $timeLimit;
+
+    /**
+     * @throws DateMalformedStringException
+     */
     public function __construct(
-        private DateTimeImmutable $timeLimit,
-    ) {}
+        DateTimeImmutable|string $timeLimit,
+    ) {
+        $this->timeLimit = is_string($timeLimit)
+            ? new DateTimeImmutable($timeLimit)
+            : $timeLimit
+        ;
+    }
 
     #[Override]
     public function onBeforeRunning(Context $context): void

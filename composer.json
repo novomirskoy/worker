@@ -38,6 +38,7 @@
         "test": "phpunit --colors=always",
         "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html var/cache/phpunit/coverage-report",
         "lint": "phplint",
-        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes"
+        "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.php --allow-risky=yes",
+        "rector": "rector"
     }
 }

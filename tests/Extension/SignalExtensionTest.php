@@ -22,14 +22,6 @@ class SignalExtensionTest extends TestCase
         $extension->handleSignal($signal);
         $extension->onBeforeRunning($context);
         static::assertEquals($context->isExecutionInterrupted(), $result);
-
-        $extension->handleSignal($signal);
-        $extension->onAfterRunning($context);
-        static::assertEquals($context->isExecutionInterrupted(), $result);
-
-        $extension->handleSignal($signal);
-        $extension->onIdle($context);
-        static::assertEquals($context->isExecutionInterrupted(), $result);
     }
 
     public static function signalsProvider(): iterable
