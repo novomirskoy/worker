@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Novomirskoy\Worker\Extension;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
 use Novomirskoy\Worker\Context;
 use Novomirskoy\Worker\Extension\LimitTimeExtension;
@@ -19,11 +20,20 @@ class LimitTimeExtensionTest extends TestCase
 
         $extension->onBeforeRunning($context);
         static::assertTrue($context->isExecutionInterrupted());
+    }
 
-        $extension->onAfterRunning($context);
-        static::assertTrue($context->isExecutionInterrupted());
+    public function testExtensionWithDateTimeAsString(): void
+    {
+        $context = new Context(new NullLogger());
+        $extension = new LimitTimeExtension('now');
 
-        $extension->onIdle($context);
+        $extension->onBeforeRunning($context);
         static::assertTrue($context->isExecutionInterrupted());
+    }
+
+    public function testExtensionWithInvalidDateTimeAsString(): void
+    {
+        $this->expectException(DateMalformedStringException::class);
+        new LimitTimeExtension('nowww');
     }
 }

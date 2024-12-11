@@ -38,3 +38,7 @@ tasks:
   cs-fix:
     cmds:
       - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer php-cs-fixer fix"
+
+  rector:
+    cmds:
+      - "docker run --rm -it -v $PWD:/src {{.PHP_IMAGE}} composer rector"

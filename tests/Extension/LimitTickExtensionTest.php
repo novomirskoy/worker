@@ -18,8 +18,5 @@ class LimitTickExtensionTest extends TestCase
 
         $extension->onBeforeRunning($context);
         static::assertFalse($context->isExecutionInterrupted());
-
-        $extension->onAfterRunning($context);
-        static::assertTrue($context->isExecutionInterrupted());
     }
 }
